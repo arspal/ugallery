@@ -7,6 +7,7 @@ import './styles.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { addPhoto } from 'store/actions/photoActions';
 import { getPhoto } from 'api';
+import { LazyImage } from 'components';
 
 export default function ImageDetails() {
   const { id } = useParams();
@@ -31,7 +32,9 @@ export default function ImageDetails() {
 
   return (
     <div className="image-details">
-      <img src={`${imageDetails.urls.raw}&q=80&w=500`} alt={imageDetails.alt_description}/>
+      <div>
+        <LazyImage image={imageDetails} style={{ width: '500px' }}/>
+      </div>
       <div className="image-details__info">
         {imageDetails.description && <p>{imageDetails.description}</p>}
         <p>Author: <span className="text-medium">{imageDetails.user.name}</span></p>
