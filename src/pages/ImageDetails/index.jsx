@@ -11,7 +11,10 @@ import { LazyImage } from 'components';
 
 export default function ImageDetails() {
   const { id } = useParams();
-  const imageDetails = useSelector(state => state.photos.details)[id];
+  const image = useSelector(state => {
+    return state.photos.list.find(image => image.id === id) || state.photos.details[id];
+  });
+  const imageDetails = useSelector(state => state.photos.details[id]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,20 +31,21 @@ export default function ImageDetails() {
 
   if (!id) return null;
 
-  if (!imageDetails) return <p>loading...</p>;
+  if (!image) return <p>loading...</p>;
 
   return (
     <div className="image-details">
       <div>
-        <LazyImage image={imageDetails} style={{ width: '500px' }}/>
+        <LazyImage image={image} style={{ width: '500px' }}/>
       </div>
-      <div className="image-details__info">
+      {imageDetails && <div className="image-details__info">
         {imageDetails.description && <p>{imageDetails.description}</p>}
         <p>Author: <span className="text-medium">{imageDetails.user.name}</span></p>
         <p>Likes: <span className="text-medium">{imageDetails.likes}</span></p>
         <p>Downloads: <span className="text-medium">{imageDetails.downloads}</span></p>
         <p>Views: <span className="text-medium">{imageDetails.views}</span></p>
-      </div>
+      </div>}
+
     </div>
   );
 }
