@@ -5,11 +5,22 @@
 
   &__header {
     padding: 10px;
+    display: flex;
+  }
+
+  &__content {
+    padding: 0 10px;
+    height: calc(100vh - 52px);
   }
 
   &__logo {
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    text-decoration: none;
+
+    &:visited {
+      color: inherit;
+    }
 
     &-icon {
       margin-right: 10px;

@@ -1,9 +1,10 @@
 import React from 'react';
 import './styles.scss';
-
 import GalleryItem from './GalleryItem';
 
-export default function ImageGallery({ images }) {
+import images from 'test-data.json';
+
+export default function ImageGallery() {
   return (
     <div className="image-gallery">
       {images.map(

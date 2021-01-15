@@ -2,11 +2,12 @@
   margin: 0;
   padding: 0;
   columns: 1;
-  grid-gap: 0;
+  grid-gap: 10px;
+  height: 100%;
 
   &__item {
-    display: block;
-    margin: 5px;
+    display: inline-flex;
+    margin-bottom: 10px
   }
 
   &__image {
