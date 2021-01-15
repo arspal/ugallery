@@ -1,15 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import './styles.scss';
 
-import imageDetails from 'test-data-details.json';
+import { useSelector, useDispatch } from 'react-redux';
+import { addPhoto } from 'store/actions/photoActions';
+import { getPhoto } from 'api';
 
 export default function ImageDetails() {
-  // const { id } = useParams();
-  // if (!id) return null;
-  // if (!image) return <p>no image found</p>;
+  const { id } = useParams();
+  const imageDetails = useSelector(state => state.photos.details)[id];
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (imageDetails) return;
+
+    async function loadImageDetails() {
+      const details = await getPhoto(id);
+      dispatch(addPhoto(details));
+    }
+
+    loadImageDetails();
+
+  }, [dispatch, imageDetails, id]);
+
+  if (!id) return null;
+
+  if (!imageDetails) return <p>loading...</p>;
 
   return (
     <div className="image-details">
