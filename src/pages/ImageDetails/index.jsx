@@ -87,7 +87,7 @@ export default function ImageDetails() {
         </div>}
         <div className="w-full">
           <a href={image.links.html} target="_blank" rel="noreferrer">
-            <LazyImage image={image} width={1200}/>
+            <LazyImage image={image} width={1800}/>
           </a>
         </div>
       </div>

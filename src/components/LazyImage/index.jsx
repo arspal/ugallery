@@ -11,7 +11,7 @@ export default function LazyImage({ image, className, style, width = 800, qualit
       className={classnames(['lazy-image', className])}
       style={{ ...style, ...{ paddingTop: `${ratio}%`, backgroundColor: image.color } }}
     >
-      <Blurhash className="lazy-image__blur" hash={image.blur_hash}/>
+      {image.blur_hash && <Blurhash className="lazy-image__blur" hash={image.blur_hash}/>}
       <img
         className="lazy-image__picture"
         sizes="(max-width: 767px) 100vw, (max-width: 432px) 400px, (max-height: 675px) 400px, (min-aspect-ratio: 4000/5000) calc((calc(100vh - 175px)) * 0.8), calc(100vw - 32px)"
