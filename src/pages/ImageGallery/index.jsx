@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import './styles.scss';
 import GalleryItem from './GalleryItem';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,7 +16,7 @@ export default function ImageGallery() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  async function loadPhotos() {
+  const loadPhotos = useCallback(async () => {
     try {
       setIsLoading(true);
       const result = await getPhotos(page);
@@ -26,14 +26,14 @@ export default function ImageGallery() {
     } finally {
       setIsLoading(false);
     }
-  }
+  }, [page, dispatch]);
 
   useEffect(() => {
     if (photos.length > 0) return;
 
     loadPhotos();
     dispatch(setNextPage(1));
-  }, [photos, dispatch]);
+  }, [loadPhotos, photos, dispatch]);
 
   useEffect(() => {
     function scrollHandler() {
@@ -47,7 +47,7 @@ export default function ImageGallery() {
     document.addEventListener('scroll', scrollHandler);
 
     return () => document.removeEventListener('scroll', scrollHandler);
-  }, [isLoading, page]);
+  }, [loadPhotos, isLoading, page]);
 
   return (
     <div className="image-gallery">
