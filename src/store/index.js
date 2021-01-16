@@ -12,7 +12,9 @@ const store = createStore(combineReducers({
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 store.subscribe(() => {
-  window.sessionStorage.setItem('app-state', JSON.stringify(store.getState()));
+  const state = store.getState();
+  if (state.errors.message) return;
+  window.sessionStorage.setItem('app-state', JSON.stringify(state));
 });
 
 export default store;
