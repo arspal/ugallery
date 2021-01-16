@@ -33,10 +33,14 @@ export default function ImageDetails() {
 
   if (!image) return <p>loading...</p>;
 
+  const ratio = image.width / image.height;
+
   return (
     <div className="image-details">
-      <div>
-        <LazyImage image={image} style={{ width: '500px' }}/>
+      <div className="image-details__container">
+        <div style={{ width: '100%', maxWidth: `calc(calc(100vh - 52px) * ${ratio} - 100px)` }}>
+          <LazyImage image={image} width={1200}/>
+        </div>
       </div>
       {imageDetails && <div className="image-details__info">
         {imageDetails.description && <p>{imageDetails.description}</p>}

@@ -1,3 +1,13 @@
 .image-details {
   display: flex;
+  position: relative;
+
+  &__container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+  }
 }
