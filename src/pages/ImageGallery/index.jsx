@@ -3,7 +3,8 @@ import './styles.scss';
 import GalleryItem from './GalleryItem';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addPhotos } from 'store/actions/photoActions';
+import { addPhotos, setNextPage } from 'store/actions/photoActions';
+import { setError } from 'store/actions/errorActions';
 
 import { getPhotos } from 'api';
 
@@ -16,22 +17,28 @@ export default function ImageGallery() {
   const [isLoading, setIsLoading] = useState(false);
 
   async function loadPhotos() {
-    setIsLoading(true);
-    const result = await getPhotos(page);
-    dispatch(addPhotos(result));
-    setIsLoading(false);
+    try {
+      setIsLoading(true);
+      const result = await getPhotos(page);
+      dispatch(addPhotos(result));
+    } catch (e) {
+      dispatch(setError(e.message));
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   useEffect(() => {
     if (photos.length > 0) return;
 
     loadPhotos();
+    dispatch(setNextPage(1));
   }, [photos, dispatch]);
 
   useEffect(() => {
     function scrollHandler() {
       const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
-      const isPageEnd = scrollTop + clientHeight > scrollHeight - 5;
+      const isPageEnd = scrollTop + clientHeight > scrollHeight - 100;
       if (isPageEnd && !isLoading) {
         loadPhotos();
       }

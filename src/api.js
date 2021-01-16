@@ -19,7 +19,7 @@ async function request(url, { method = 'GET', ...params } = {}) {
 }
 
 export async function getPhotos(page) {
-  return request(`/photos?page=${page}`);
+  return request(`/photos?page=${page}&per_page=12`);
 }
 
 export async function getPhoto(id) {

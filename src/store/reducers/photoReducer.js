@@ -1,4 +1,4 @@
-import { ADD_PHOTO_DETAILS, ADD_PHOTOS } from '../actionTypes';
+import { ADD_PHOTO_DETAILS, ADD_PHOTOS, SET_NEXT_PAGE } from '../actionTypes';
 
 export default function photoReducer(photos = { list: [], details: {}, nextPage: 1 }, action) {
   switch (action.type) {
@@ -17,8 +17,9 @@ export default function photoReducer(photos = { list: [], details: {}, nextPage:
           ...photos.details,
         },
         nextPage: photos.nextPage + 1,
-      }
-        ;
+      };
+    case SET_NEXT_PAGE:
+      return { ...photos, nextPage: action.payload };
     default:
       return photos;
   }
