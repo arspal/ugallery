@@ -51,7 +51,7 @@ export default function ImageGallery() {
 
   return (
     <div className="image-gallery">
-      {photos.map(image => <GalleryItem key={image.id} image={image}/>)}
+      {photos.map((image, index) => <GalleryItem key={index} image={image}/>)}
     </div>
   );
 }
