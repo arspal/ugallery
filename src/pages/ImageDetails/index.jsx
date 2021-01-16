@@ -8,6 +8,7 @@ import UserInfo from './UserInfo';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { addPhoto } from 'store/actions/photoActions';
+import { setError } from 'store/actions/errorActions';
 import { getPhoto } from 'api';
 import { LazyImage } from 'components';
 
@@ -25,8 +26,13 @@ export default function ImageDetails() {
     if (imageDetails) return;
 
     async function loadImageDetails() {
-      const details = await getPhoto(id);
-      dispatch(addPhoto(details));
+      try {
+        const details = await getPhoto(id);
+        dispatch(addPhoto(details));
+      } catch (e) {
+        dispatch(setError(e.message));
+      }
+
     }
 
     loadImageDetails();
