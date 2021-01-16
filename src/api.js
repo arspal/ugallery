@@ -18,8 +18,8 @@ async function request(url, { method = 'GET', ...params } = {}) {
   return resp.json();
 }
 
-export async function getPhotos() {
-  return request('/photos');
+export async function getPhotos(page) {
+  return request(`/photos?page=${page}`);
 }
 
 export async function getPhoto(id) {
