@@ -17,14 +17,16 @@ export default function GalleryItem({ image }) {
             alt="user profile"/>
           <p className="gallery-picture__author-name">{image.user.name}</p>
         </div>
-        <p className="gallery-picture__likes">
+        {image.likes > 0 && (
+          <p className="gallery-picture__likes">
             <span className="gallery-picture__likes-icon">
               <svg>
                 <use xlinkHref="/icons.svg#heart"/>
               </svg>
             </span>
-          {image.likes}
-        </p>
+            {image.likes}
+          </p>
+        )}
       </div>
     </Link>
   );
