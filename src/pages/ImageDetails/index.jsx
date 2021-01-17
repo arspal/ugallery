@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addPhoto } from 'store/actions/photoActions';
 import { setError } from 'store/actions/errorActions';
 import { getPhoto } from 'api';
-import { LazyImage } from 'components';
+import { LazyImage, SkeletBar } from 'components';
 
 export default function ImageDetails() {
   const { id } = useParams();
@@ -80,9 +80,20 @@ export default function ImageDetails() {
             />
           )}
           <div className="image-details__stats">
-            <p>Likes: <span className="text-medium">{imageDetails?.likes}</span></p>
-            <p>Downloads: <span className="text-medium">{imageDetails?.downloads}</span></p>
-            <p>Views: <span className="text-medium">{imageDetails?.views}</span></p>
+            {imageDetails && (
+              <>
+                <p>Likes: <span className="text-medium">{imageDetails?.likes}</span></p>
+                <p>Downloads: <span className="text-medium">{imageDetails?.downloads}</span></p>
+                <p>Views: <span className="text-medium">{imageDetails?.views}</span></p>
+              </>
+            )}
+            {!imageDetails && (
+              <>
+                <SkeletBar height={18} width={80} className="mb-5"/>
+                <SkeletBar height={18} width={120} className="mb-5"/>
+                <SkeletBar height={18} width={100}/>
+              </>
+            )}
           </div>
         </div>}
         <div className="w-full">

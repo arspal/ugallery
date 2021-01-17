@@ -17,6 +17,9 @@
   &__stats {
     text-align: right;
     flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
   }
 
   &__container {
