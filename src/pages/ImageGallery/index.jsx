@@ -2,7 +2,6 @@ import React, { useEffect, useCallback, useState } from 'react';
 import './styles.scss';
 import GalleryItem from './GalleryItem';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { addPhotos, setNextPage } from 'store/actions/photoActions';
 import { setError } from 'store/actions/errorActions';
 
@@ -38,7 +37,9 @@ export default function ImageGallery() {
   useEffect(() => {
     function scrollHandler() {
       const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
-      const isPageEnd = scrollTop + clientHeight > scrollHeight - 100;
+      if (scrollHeight === clientHeight) return;
+
+      const isPageEnd = scrollTop + clientHeight > scrollHeight - 5;
       if (isPageEnd && !isLoading) {
         loadPhotos();
       }
