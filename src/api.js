@@ -18,8 +18,8 @@ async function request(url, { method = 'GET', ...params } = {}) {
   return resp.json();
 }
 
-export async function getPhotos(page) {
-  return request(`/photos?page=${page}&per_page=12`);
+export async function getPhotos(page, perPage) {
+  return request(`/photos?page=${page}&per_page=${perPage}`);
 }
 
 export async function getPhoto(id) {

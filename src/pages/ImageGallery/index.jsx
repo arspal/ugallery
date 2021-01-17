@@ -15,33 +15,32 @@ export default function ImageGallery() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const loadPhotos = useCallback(async () => {
+  const loadPhotos = useCallback(async (page, perPage) => {
     try {
       setIsLoading(true);
-      const result = await getPhotos(page);
+      const result = await getPhotos(page, perPage);
       dispatch(addPhotos(result));
     } catch (e) {
       dispatch(setError(e.message));
     } finally {
       setIsLoading(false);
     }
-  }, [page, dispatch]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (photos.length > 0) return;
 
-    loadPhotos();
-    dispatch(setNextPage(1));
-  }, [loadPhotos, photos, dispatch]);
+    loadPhotos(page, 20).then(() => dispatch(setNextPage(3)));
+  }, [page, loadPhotos, photos, dispatch]);
 
   useEffect(() => {
     function scrollHandler() {
       const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
       if (scrollHeight === clientHeight) return;
 
-      const isPageEnd = scrollTop + clientHeight > scrollHeight - 5;
+      const isPageEnd = scrollTop + clientHeight > scrollHeight - 100;
       if (isPageEnd && !isLoading) {
-        loadPhotos();
+        loadPhotos(page, 10);
       }
     }
 
