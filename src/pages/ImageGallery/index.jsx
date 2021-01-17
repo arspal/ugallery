@@ -4,6 +4,7 @@ import GalleryItem from './GalleryItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPhotos, setNextPage } from 'store/actions/photoActions';
 import { setError } from 'store/actions/errorActions';
+import { Loader } from 'components';
 
 import { getPhotos } from 'api';
 
@@ -50,8 +51,12 @@ export default function ImageGallery() {
   }, [loadPhotos, isLoading, page]);
 
   return (
-    <div className="image-gallery">
-      {photos.map((image, index) => <GalleryItem key={index} image={image}/>)}
-    </div>
+    <>
+      {(photos.length > 0 && (
+        <div className="image-gallery">
+          {photos.map((image, index) => <GalleryItem key={index} image={image}/>)}
+        </div>
+      )) || <Loader className="mt-8vh"/>}
+    </>
   );
 }

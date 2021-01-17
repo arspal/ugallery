@@ -16,6 +16,8 @@
     margin-top: 52px;
     padding: 0 10px;
     display: flex;
+    justify-content: center;
+    min-height: calc(100vh - 52px);
   }
 
   &__logo {

@@ -10,10 +10,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addPhoto } from 'store/actions/photoActions';
 import { setError } from 'store/actions/errorActions';
 import { getPhoto } from 'api';
-import { LazyImage, SkeletBar } from 'components';
+import { LazyImage, SkeletBar, Loader } from 'components';
 
 export default function ImageDetails() {
   const { id } = useParams();
+
   const image = useSelector(state => {
     return state.photos.list.find(image => image.id === id) || state.photos.details[id];
   });
@@ -58,9 +59,7 @@ export default function ImageDetails() {
     return () => matchMedia.removeEventListener('change', mediaQueryHandler);
   }, []);
 
-  if (!id) return null;
-
-  if (!image) return <p>loading...</p>;
+  if (!image) return <Loader className="mt-8vh"/>;
 
   const ratio = image.width / image.height;
 
